@@ -1,4 +1,4 @@
-# # ☁️ Infrastructure as Code with Terraform & AWS
+# ☁️ Infrastructure as Code with Terraform & AWS
 
 This project demonstrates how to provision and manage cloud infrastructure on AWS using [Terraform](https://www.terraform.io/). It is designed as a continuation of our CI/CD security pipeline project, adding automated deployment and scalability using Infrastructure as Code (IaC).
 
