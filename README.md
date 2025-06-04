@@ -40,10 +40,18 @@ We use Terraform to define and provision the following AWS resources:
 2. **Initialize Terraform**
    ```bash
    terraform init
-Plan Infrastructure
-Apply Configuration
-Destroy (if needed)
-terraform destroy
+
+3. **Plan Infrastructure**
+   ```bash
+   terraform plan
+
+4. **Apply Configuration**
+   ```bash
+    terraform apply
+
+5. **Destroy (if needed)**
+   ```bash
+    terraform destroy
 
 ## 🔐 Security Practices
 Sensitive variables (like AWS secrets) should be managed via environment variables or secret managers.
