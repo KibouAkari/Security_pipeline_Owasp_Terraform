@@ -29,7 +29,7 @@ We use Terraform to define and provision the following AWS resources:
    │ └── provider.tf # AWS provider configuration
    ├── .gitignore
    └── README.md
-
+               
 markdown
 Copy
 Edit
