@@ -21,15 +21,14 @@ We use Terraform to define and provision the following AWS resources:
 - **GitHub** – Source code and pipeline trigger
 
 ## 📂 Project Structure
-
-.
-├── terraform/
-│ ├── main.tf # Core infrastructure definitions
-│ ├── variables.tf # Input variables
-│ ├── outputs.tf # Outputs for other modules/tools
-│ └── provider.tf # AWS provider configuration
-├── .gitignore
-└── README.md
+   .
+   ├── terraform/
+   │ ├── main.tf # Core infrastructure definitions
+   │ ├── variables.tf # Input variables
+   │ ├── outputs.tf # Outputs for other modules/tools
+   │ └── provider.tf # AWS provider configuration
+   ├── .gitignore
+   └── README.md
 
 markdown
 Copy
