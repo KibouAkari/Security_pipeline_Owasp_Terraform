@@ -21,18 +21,15 @@ We use Terraform to define and provision the following AWS resources:
 - **GitHub** – Source code and pipeline trigger
 
 ## 📂 Project Structure
-   .
-   ├── terraform/
-   │ ├── main.tf # Core infrastructure definitions
-   │ ├── variables.tf # Input variables
-   │ ├── outputs.tf # Outputs for other modules/tools
-   │ └── provider.tf # AWS provider configuration
-   ├── .gitignore
-   └── README.md
+    .
+    ├── Terraform
+    │ ├── main.tf # Core infrastructure definitions
+    │ ├── variables.tf # Input variables
+    │ ├── outputs.tf # Outputs for other modules/tools
+    │ └── provider.tf # AWS provider configuration
+    ├── .gitignore
+    └── README.md
                
-markdown
-Copy
-Edit
 
 ## 🚀 Getting Started
 
@@ -44,31 +41,18 @@ Edit
    ```bash
    terraform init
 Plan Infrastructure
-
-bash
-Copy
-Edit
-terraform plan
 Apply Configuration
-
-bash
-Copy
-Edit
-terraform apply
 Destroy (if needed)
-
-bash
-Copy
-Edit
 terraform destroy
-🔐 Security Practices
+
+## 🔐 Security Practices
 Sensitive variables (like AWS secrets) should be managed via environment variables or secret managers.
 
 IAM roles and policies follow the principle of least privilege.
 
 Resources are provisioned in isolated subnets with controlled ingress/egress rules.
 
-💡 Goals
+## 💡 Goals
 Learn and apply Infrastructure as Code principles.
 
 Build secure, scalable AWS environments for real-world projects.
