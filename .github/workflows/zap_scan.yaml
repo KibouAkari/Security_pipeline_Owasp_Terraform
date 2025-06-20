@@ -14,21 +14,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create reports folder
-        run: mkdir -p reports
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.10.0
+        with:
+          target: "http://juice-shop-${{ secrets.AZURE_DNS_LABEL }}.switzerlandnorth.azurecontainer.io:3000"
+          fail_action: false
+          cmd_options: "-a"
 
-      - name: Start Docker Compose (Juice Shop + ZAP)
-        run: |
-          docker compose up --abort-on-container-exit || echo "ZAP scan completed with findings"
-
-      - name: Copy ZAP reports from container
-        run: |
-          ZAP_CONTAINER=$(docker ps -aqf "name=zap")
-          docker cp "$ZAP_CONTAINER":/tmp/zap-report.html reports/zap-report.html || echo "No HTML report found"
-          docker cp "$ZAP_CONTAINER":/tmp/zap-report.json reports/zap-report.json || echo "No JSON report found"
-
-      - name: Upload ZAP HTML Report
+      - name: Upload ZAP Report
         uses: actions/upload-artifact@v4
         with:
           name: zap-report
-          path: reports/zap-report.html
+          path: owasp-zap-report.html
