@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  juice-shop:
-    image: bkimminich/juice-shop
-    ports:
-      - "3000:3000"
-    networks:
-      - zapnet
+  #  juice-shop:
+  #   image: bkimminich/juice-shop
+  #  ports:
+  #   - "3000:3000"
+  #networks:
+  # - zapnet
 
   zap:
     image: ictu/zap2docker-weekly
@@ -16,13 +16,9 @@ services:
       - zapnet
     volumes:
       - ./zap-config:/zap/wrk:ro
-     # - ./reports:/zap/reports
+    # - ./reports:/zap/reports
     command: >
-      sh -c "sleep 10 && zap-full-scan.py
-      -t http://juice-shop:3000
-      -r /tmp/zap-report.html
-      -J /tmp/zap-report.json"
-
+      sh -c "sleep 10 && zap-full-scan.py -t http://juice-shop-${{ secrets.AZURE_DNS_LABEL }}.switzerlandnorth.azurecontainer.io:3000 -r /tmp/zap-report.html -J /tmp/zap-report.json"
 
 networks:
   zapnet:
