@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "rg" {
 
   tags = {
     created_by    = "KibouAkari"
-    creation_date = "20.06.25"
+    creation_date = "25.06.25"
   }
 }
 
