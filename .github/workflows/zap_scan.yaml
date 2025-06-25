@@ -20,8 +20,20 @@ jobs:
       - name: Create reports folder
         run: mkdir -p reports
 
-      - name: Start Docker Compose (Juice Shop + ZAP)
+      - name: Wait for Juice Shop to be available
         run: |
+          for i in {1..20}; do
+            if curl -s --head http://$JUICE_SHOP_URL | grep "200 OK" > /dev/null; then
+              echo "Juice Shop is up!"
+              break
+            fi
+            echo "Waiting for Juice Shop..."
+            sleep 10
+          done
+
+      - name: Start Docker Compose (ZAP)
+        run: |
+        
           docker compose up --abort-on-container-exit || echo "ZAP scan completed with findings"
 
       - name: Copy ZAP reports from container

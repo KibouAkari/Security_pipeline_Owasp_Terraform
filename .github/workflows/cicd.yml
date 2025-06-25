@@ -35,6 +35,7 @@ jobs:
           echo "fqdn=$(terraform output -raw fqdn)" >> $GITHUB_OUTPUT
         working-directory: terraform
         env:
+          TF_LOG: DEBUG
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
