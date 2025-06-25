@@ -8,6 +8,10 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
+resource "random_id" "dns" {
+  byte_length = 4
+}
+
 resource "azurerm_container_group" "juice_shop" {
   name                = "juice-shop-container"
   location            = var.location
@@ -33,6 +37,6 @@ resource "azurerm_container_group" "juice_shop" {
   }
 }
 
-resource "random_id" "dns" {
-  byte_length = 4
+output "fqdn" {
+  value = azurerm_container_group.juice_shop.fqdn
 }

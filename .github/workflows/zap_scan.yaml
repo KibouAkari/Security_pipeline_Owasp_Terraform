@@ -10,6 +10,9 @@ jobs:
   zap_scan:
     runs-on: ubuntu-latest
 
+    env:
+      JUICE_SHOP_URL: ${{ secrets.JUICE_SHOP_URL }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
