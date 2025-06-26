@@ -1,68 +1,80 @@
-# ☁️ Infrastructure as Code with Terraform & AWS
+# ☁️ Infrastructure as Code with Terraform & Azure
 
-This project demonstrates how to provision and manage cloud infrastructure on AWS using [Terraform](https://www.terraform.io/). It is designed as a continuation of our CI/CD security pipeline project, adding automated deployment and scalability using Infrastructure as Code (IaC).
+This project demonstrates how to provision and manage cloud infrastructure on **Azure** using Terraform. It extends a CI/CD security pipeline by adding automated deployment of the OWASP Juice Shop using Infrastructure as Code (IaC) and GitHub Actions.
 
 ## 🌍 Overview
 
-We use Terraform to define and provision the following AWS resources:
+We use Terraform to define and provision the following Azure resources:
 
-- Virtual Private Cloud (VPC)
-- Subnets and Route Tables
-- EC2 Instances or ECS Services (for hosting containers)
-- Security Groups and IAM Roles
-- S3 Buckets for artifact storage (optional)
-- ALB (Application Load Balancer) for traffic routing
+- **Resource Group** – Logical container for all resources
+- **Azure Container Instance (ACI)** – To run the Juice Shop container
+- **Public DNS Label** – For external access to the app
+- **Random ID** – To generate unique DNS names
 
 ## ⚙️ Technologies Used
 
 - **Terraform** – Infrastructure as Code
-- **AWS** – Cloud provider
-- **Docker** – Container platform (if used with ECS)
-- **GitHub** – Source code and pipeline trigger
+- **Azure** – Cloud provider
+- **Docker** – Container platform
+- **GitHub Actions** – CI/CD pipeline
+- **OWASP Juice Shop** – Vulnerable web app for security testing
+- **OWASP ZAP** – Automated security scanner
 
 ## 📂 Project Structure
-    .
-    ├── Terraform
-    │ ├── main.tf # Core infrastructure definitions
-    │ ├── variables.tf # Input variables
-    │ ├── outputs.tf # Outputs for other modules/tools
-    │ └── provider.tf # AWS provider configuration
-    ├── .gitignore
-    └── README.md
+    . 
+    ├── .github/ 
+    │ └── workflows/ 
+    │ ├── cicd.yaml # Terraform deployment + tests 
+    │ └── zap_scan.yaml # ZAP security scan 
+    ├── terraform/ 
+    │ ├── main.tf # Azure infrastructure definitions 
+    │ ├── variables.tf # Input variables 
+    │ ├── providers.tf # Azure provider configuration 
+    │ ├── version.tf # Required provider versions 
+    ├── tests/ 
+    │ └── test_example.py # Placeholder test 
+    ├── zap/ 
+    │ └── reports/ # ZAP scan reports 
+    ├── zap-config/ 
+    │ ├── auth.context # (Optional) ZAP context file 
+    │ └── zap-policy.xml # (Optional) ZAP scan policy 
+    ├── requirements.txt # Python dependencies 
+    ├── README.md # Project documentation 
+    └── .gitignore
                
-
 ## 🚀 Getting Started
 
 1. **Install Prerequisites**  
-   - [Terraform](https://developer.hashicorp.com/terraform/install)
-   - AWS CLI configured with access keys
+   - Terraform
+   - Azure Subscription + Service Principal
+   - GitHub repository with Actions enabled
 
-2. **Initialize Terraform**
-   ```bash
-   terraform init
+2. **Configure GitHub Secrets**  
+   Add the following secrets to your repository:
+   - `AZURE_CLIENT_ID`
+   - `AZURE_CLIENT_SECRET`
+   - `AZURE_SUBSCRIPTION_ID`
+   - `AZURE_TENANT_ID`
+   - `AZURE_DNS_LABEL` (after first deployment)
 
-3. **Plan Infrastructure**
-   ```bash
-   terraform plan
+3. **Trigger Deployment**  
+   Push to the `main` branch to trigger the GitHub Actions pipeline.
 
-4. **Apply Configuration**
-   ```bash
-    terraform apply
+4. **Access the App**  
+   After deployment, the Juice Shop will be available at:
+http://<AZURE_DNS_LABEL>.switzerlandnorth.azurecontainer.io:3000
 
-5. **Destroy (if needed)**
-   ```bash
-    terraform destroy
+5. **Run Security Scan**  
+The `zap_scan.yaml` workflow will scan the deployed app and upload a report as an artifact.
 
 ## 🔐 Security Practices
-Sensitive variables (like AWS secrets) should be managed via environment variables or secret managers.
 
-IAM roles and policies follow the principle of least privilege.
-
-Resources are provisioned in isolated subnets with controlled ingress/egress rules.
+- Secrets are managed via GitHub Actions secrets.
+- Terraform uses a Service Principal with least-privilege access.
+- OWASP ZAP scans for common vulnerabilities (XSS, SQLi, etc.).
 
 ## 💡 Goals
-Learn and apply Infrastructure as Code principles.
 
-Build secure, scalable AWS environments for real-world projects.
-
-Integrate infrastructure provisioning into CI/CD pipelines (future step).
+- Learn and apply Infrastructure as Code principles with Azure.
+- Automate secure deployments using GitHub Actions.
+- Integrate security scanning into CI/CD pipelines (DevSecOps).
