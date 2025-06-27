@@ -1,11 +1,28 @@
+resource "null_resource" "delete_rg" {
+  provisioner "local-exec" {
+    command = <<EOT
+      echo "Deleting existing resource group (if it exists)..."
+      az group delete --name juice-shop-rg --yes --no-wait || echo "Resource group not found or already deleted"
+      echo "Waiting 30 seconds to ensure deletion..."
+      sleep 30
+    EOT
+  }
+
+  triggers = {
+    always_run = timestamp()
+  }
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = "juice-shop-rg"
   location = var.location
 
   tags = {
     created_by    = "KibouAkari"
-    creation_date = "25.06.25"
+    creation_date = "27.06.25"
   }
+
+  depends_on = [null_resource.delete_rg]
 }
 
 resource "random_id" "dns" {
