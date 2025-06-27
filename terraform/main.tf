@@ -37,7 +37,7 @@ resource "azurerm_container_group" "juice_shop" {
 
   container {
     name   = "juice-shop"
-    image  = "bkimminich/juice-shop:latest"
+    image  = "juiceshopregistryforterraform.azurecr.io/juice-shop:latest"
     cpu    = "0.5"
     memory = "1.5"
 
@@ -47,10 +47,17 @@ resource "azurerm_container_group" "juice_shop" {
     }
   }
 
+  image_registry_credential {
+    server   = "juiceshopregistryforterraform.azurecr.io"
+    username = var.acr_username
+    password = var.acr_password
+  }
+
   tags = {
     environment = "dev"
   }
 }
+
 
 output "fqdn" {
   value = azurerm_container_group.juice_shop.fqdn

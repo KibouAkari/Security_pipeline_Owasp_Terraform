@@ -29,3 +29,10 @@ variable "client_secret" {
 variable "resource_group_name" {
   default = "juice-shop-rg"
 }
+
+variable "acr_username" {
+  default = "username"
+}
+variable "acr_password" {
+  default = "password"
+}

@@ -24,6 +24,8 @@ jobs:
         run: terraform init
         working-directory: terraform
         env:
+          TF_VAR_acr_username: ${{ secrets.ACR_USERNAME }}
+          TF_VAR_acr_password: ${{ secrets.ACR_PASSWORD }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -40,6 +42,8 @@ jobs:
           echo "fqdn=$(terraform output -raw fqdn)" >> $GITHUB_OUTPUT
         working-directory: terraform
         env:
+          TF_VAR_acr_username: ${{ secrets.ACR_USERNAME }}
+          TF_VAR_acr_password: ${{ secrets.ACR_PASSWORD }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
