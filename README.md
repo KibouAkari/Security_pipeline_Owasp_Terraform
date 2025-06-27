@@ -36,8 +36,8 @@ We use Terraform to define and provision the following Azure resources:
     ├── zap/ 
     │ └── reports/ # ZAP scan reports 
     ├── zap-config/ 
-    │ ├── auth.context # (Optional) ZAP context file 
-    │ └── zap-policy.xml # (Optional) ZAP scan policy 
+    │ ├── auth.context # (not used) ZAP context file 
+    │ └── zap-policy.xml # (not used) ZAP scan policy 
     ├── requirements.txt # Python dependencies 
     ├── README.md # Project documentation 
     └── .gitignore
