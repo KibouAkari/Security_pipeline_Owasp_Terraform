@@ -1,28 +1,26 @@
-resource "null_resource" "delete_rg" {
-  provisioner "local-exec" {
-    command = <<EOT
-      echo "Deleting existing resource group (if it exists)..."
-      az group delete --name juice-shop-rg --yes --no-wait || echo "Resource group not found or already deleted"
-      echo "Waiting 30 seconds to ensure deletion..."
-      sleep 30
-    EOT
-  }
 
-  triggers = {
-    always_run = timestamp()
-  }
+# Versuche, die RG zu lesen (wenn sie existiert)
+data "azurerm_resource_group" "existing" {
+  name  = var.resource_group_name
+  count = 1
 }
 
+# Erstelle die RG nur, wenn sie nicht existiert
 resource "azurerm_resource_group" "rg" {
-  name     = "juice-shop-rg"
+  count    = length(data.azurerm_resource_group.existing) == 0 ? 1 : 0
+  name     = var.resource_group_name
   location = var.location
 
   tags = {
     created_by    = "KibouAkari"
     creation_date = "27.06.25"
   }
+}
 
-  depends_on = [null_resource.delete_rg]
+# Wähle die RG dynamisch aus
+locals {
+  rg_name     = length(data.azurerm_resource_group.existing) > 0 ? data.azurerm_resource_group.existing[0].name : azurerm_resource_group.rg[0].name
+  rg_location = length(data.azurerm_resource_group.existing) > 0 ? data.azurerm_resource_group.existing[0].location : azurerm_resource_group.rg[0].location
 }
 
 resource "random_id" "dns" {
@@ -31,8 +29,8 @@ resource "random_id" "dns" {
 
 resource "azurerm_container_group" "juice_shop" {
   name                = "juice-shop-container"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = local.rg_location
+  resource_group_name = local.rg_name
   ip_address_type     = "Public"
   dns_name_label      = "juice-shop-${random_id.dns.hex}"
   os_type             = "Linux"

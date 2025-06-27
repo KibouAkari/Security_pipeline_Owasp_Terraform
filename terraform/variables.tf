@@ -25,3 +25,7 @@ variable "client_secret" {
   description = "Azure Client Secret"
   type        = string
 }
+
+variable "resource_group_name" {
+  default = "juice-shop-rg"
+}
