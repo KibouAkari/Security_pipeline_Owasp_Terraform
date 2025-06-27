@@ -31,8 +31,13 @@ variable "resource_group_name" {
 }
 
 variable "acr_username" {
-  default = "username"
+  description = "Username for Azure Container Registry"
+  type        = string
+  default     = "username"
 }
+
 variable "acr_password" {
-  default = "password"
+  description = "Password for Azure Container Registry"
+  type        = string
+  default     = "password"
 }
