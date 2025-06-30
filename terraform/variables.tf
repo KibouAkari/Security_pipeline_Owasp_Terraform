@@ -29,13 +29,3 @@ variable "client_secret" {
   description = "Azure Client Secret"
   type        = string
 }
-
-variable "acr_username" {
-  description = "Username for Azure Container Registry"
-  type        = string
-}
-
-variable "acr_password" {
-  description = "Password for Azure Container Registry"
-  type        = string
-}

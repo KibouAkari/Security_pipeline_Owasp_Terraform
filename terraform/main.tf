@@ -14,6 +14,10 @@ resource "azurerm_container_group" "juice_shop" {
   dns_name_label      = "juice-shop-${random_id.dns.hex}"
   os_type             = "Linux"
 
+  identity {
+    type = "SystemAssigned"
+  }
+
   container {
     name   = "juice-shop"
     image  = "juiceshopregistryforterraform.azurecr.io/juice-shop:latest"
@@ -24,12 +28,6 @@ resource "azurerm_container_group" "juice_shop" {
       port     = 3000
       protocol = "TCP"
     }
-  }
-
-  image_registry_credential {
-    server   = "juiceshopregistryforterraform.azurecr.io"
-    username = var.acr_username
-    password = var.acr_password
   }
 
   tags = {
