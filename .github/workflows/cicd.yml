@@ -34,6 +34,11 @@ jobs:
         run: terraform init
         working-directory: terraform
 
+      - name: Debug ACR credentials
+        run: |
+          echo "ACR_USERNAME: $TF_VAR_acr_username"
+          echo "ACR_PASSWORD length: ${#TF_VAR_acr_password}"
+
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: terraform

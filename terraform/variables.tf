@@ -9,11 +9,14 @@ variable "tenant_id" {
   default     = "tenant_id"
 }
 
+variable "resource_group_name" {
+  description = "Name of the existing resource group"
+  default     = "juice-shop-rg"
+}
+
 variable "location" {
   description = "Azure region for resources"
-  type        = string
   default     = "switzerlandnorth"
-
 }
 
 variable "client_id" {
@@ -26,18 +29,12 @@ variable "client_secret" {
   type        = string
 }
 
-variable "resource_group_name" {
-  default = "juice-shop-rg"
-}
-
 variable "acr_username" {
   description = "Username for Azure Container Registry"
   type        = string
-  default     = "username"
 }
 
 variable "acr_password" {
   description = "Password for Azure Container Registry"
   type        = string
-  default     = "password"
 }
