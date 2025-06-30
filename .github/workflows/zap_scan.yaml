@@ -9,7 +9,6 @@ on:
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-
     env:
       JUICE_SHOP_URL: ${{ secrets.JUICE_SHOP_URL }}
 
@@ -33,7 +32,6 @@ jobs:
 
       - name: Start Docker Compose (ZAP)
         run: |
-        
           docker compose up --abort-on-container-exit || echo "ZAP scan completed with findings"
 
       - name: Copy ZAP reports from container

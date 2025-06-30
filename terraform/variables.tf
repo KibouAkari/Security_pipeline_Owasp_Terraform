@@ -3,6 +3,7 @@ variable "subscription_id" {
   type        = string
   default     = "subscription_id"
 }
+
 variable "tenant_id" {
   description = "Tenant ID"
   type        = string
